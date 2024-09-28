@@ -2,8 +2,8 @@ import { build } from "electron-builder";
 
 build({
   config: {
-    appId: "com.electrostatic.app",
-    productName: "ElectroStatic",
+    appId: "com.f1-desktop-widgets.app",
+    productName: "f1-desktop-widgets",
     artifactName: "${productName}-${version}_${platform}_${arch}.${ext}",
     buildDependenciesFromSource: true,
     files: ["out/**/*"],

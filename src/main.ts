@@ -1,15 +1,22 @@
 import { createContext } from "@src/shared/context";
 import { appRouter } from "@src/shared/routers/_app";
-import { BrowserWindow, app } from "electron";
+import { BrowserWindow, app, screen } from "electron";
 import { createIPCHandler } from "electron-trpc/main";
 import { join } from "node:path";
 
 app.setName("F1-Desktop");
 
 const createWindow = () => {
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
   const mainWindow = new BrowserWindow({
     frame: false,
     transparent: true,
+    width: width - 900,
+    height: height - 500,
+    resizable: false,
+    x: width - 470,
+    alwaysOnTop: true,
+    y: height - 760,
     webPreferences: {
       sandbox: false,
       preload: join(__dirname, "../preload/preload.js"),

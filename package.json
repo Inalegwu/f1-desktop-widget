@@ -1,6 +1,6 @@
 {
-  "name": "electrostatic",
-  "description": "Starter Template for electron apps with trpc , drizzle-orm and sqlite",
+  "name": "f1-desktop",
+  "description": "desktop widgets for the F1 enthusiast",
   "version": "0.0.1",
   "author": {
     "email": "youremail@provider.com",
@@ -16,8 +16,6 @@
     "dev": "electron-vite dev -w",
     "prebuild": "electron-vite build",
     "build": "pnpm tsx build.ts",
-    "db:generate": "drizzle-kit generate:sqlite",
-    "db:push": "drizzle-kit push:sqlite",
     "postinstall": "electron-rebuild"
   },
   "dependencies": {

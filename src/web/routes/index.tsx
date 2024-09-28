@@ -14,7 +14,9 @@ function Index() {
       gap="4"
       p="2"
     >
-      content
+      <Flex className="bg-zinc-100 dark:bg-dark-9 px-2 py-2 dark:text-white rounded-lg">
+        content
+      </Flex>{" "}
     </Flex>
   );
 }
