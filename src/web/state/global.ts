@@ -1,6 +1,6 @@
 import { observable } from "@legendapp/state";
 import { persistObservable } from "@legendapp/state/persist";
-import { GlobalState } from "@shared/types";
+import type { GlobalState } from "@shared/types";
 import { configureObservablePersistence } from "@legendapp/state/persist";
 import { ObservablePersistLocalStorage } from "@legendapp/state/persist-plugins/local-storage";
 
@@ -10,6 +10,9 @@ configureObservablePersistence({
 
 export const globalState$ = observable<GlobalState>({
   colorMode: "dark",
+  showDriverStanding: false,
+  showConstructorStandings: false,
+  showCalender: false,
 });
 
 persistObservable(globalState$, {

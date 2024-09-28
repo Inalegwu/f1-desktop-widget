@@ -29,3 +29,11 @@ body {
   width: 0;
   background: transparent;
 }
+
+button{
+  appearance:none;
+  background:none;
+  border:none;
+  cursor:pointer;
+  outline:none;
+}

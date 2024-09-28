@@ -12,7 +12,7 @@ const createWindow = () => {
     frame: false,
     transparent: true,
     width: width - 900,
-    height: height - 500,
+    height: height - 400,
     resizable: false,
     x: width - 470,
     alwaysOnTop: true,

@@ -39,9 +39,9 @@ if (!rootElement?.innerHTML) {
       <t.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
           <Theme
-            appearance="dark"
+            // appearance="dark"
             radius="medium"
-            accentColor="blue"
+            accentColor="gray"
             grayColor="slate"
           >
             <RouterProvider router={router} />

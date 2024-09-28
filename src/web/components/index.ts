@@ -1,3 +1,3 @@
-import Layout from "./layout";
+import Flatlist from "./flatlist";
 
-export { Layout };
+export { Flatlist };
