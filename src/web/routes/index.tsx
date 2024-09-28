@@ -10,7 +10,7 @@ function Index() {
     <Flex
       grow="1"
       direction="column"
-      className="h-screen w-full overflow-y-scroll pb-14"
+      className="w-full h-screen bg-transparent"
       gap="4"
       p="2"
     >

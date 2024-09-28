@@ -4,19 +4,19 @@ import { BrowserWindow, app } from "electron";
 import { createIPCHandler } from "electron-trpc/main";
 import { join } from "node:path";
 
-
 app.setName("F1-Desktop");
 
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
-   frame: false,
+    frame: false,
+    transparent: true,
     webPreferences: {
       sandbox: false,
       preload: join(__dirname, "../preload/preload.js"),
     },
   });
 
- createIPCHandler({
+  createIPCHandler({
     router: appRouter,
     windows: [mainWindow],
     createContext,
