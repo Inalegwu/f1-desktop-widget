@@ -1,13 +1,13 @@
 @font-face {
-  font-family: Bricolage;
-  src: url("../assets/fonts/bricolage.ttf");
+  font-family: Font;
+  src: url("../assets/fonts/inter.ttf");
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Bricolage;
+  font-family: Font;
   text-decoration: none;
 }
 

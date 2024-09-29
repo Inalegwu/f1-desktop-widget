@@ -2,10 +2,18 @@ import { DropdownMenu, Flex, Text } from "@radix-ui/themes";
 import { createFileRoute } from "@tanstack/react-router";
 import { memo } from "react";
 import { Flatlist } from "../components";
-import { CaretDown, DotsThreeVertical, Moon, Sun } from "@phosphor-icons/react";
+import {
+  Calendar,
+  CaretDown,
+  DotsThreeVertical,
+  Moon,
+  Sun,
+} from "@phosphor-icons/react";
 import { globalState$ } from "../state";
-import { useObserveEffect } from "@legendapp/state/react";
+import { Show, useObservable, useObserveEffect } from "@legendapp/state/react";
 import { computed } from "@legendapp/state";
+import t from "@shared/config";
+import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -101,6 +109,7 @@ function Index() {
             </DropdownMenu.Content>
           </DropdownMenu.Root>
         </Flex>
+        {/*TODO make this a dnd list to reorder elements*/}
         {canShowConstructors && <ConstructorStandings />}
         {canShowDrivers && <DriverStandings />}
         {canShowCalender && <Calender />}
@@ -109,29 +118,89 @@ function Index() {
   );
 }
 
-const ConstructorStandings = memo(() => (
-  <Flatlist
-    listHeaderComponent={() => (
-      <Flex align="center" justify="between">
-        <Text size="1" color="gray">
-          Constructor Standings
-        </Text>
-        <button
-          type="button"
-          className="flex items-center justify-center text-zinc-500 dark:hover:bg-zinc-200/10 hover:bg-zinc-200 px-1 py-1 rounded-sm"
-        >
-          <CaretDown size={10} />
-        </button>
-      </Flex>
-    )}
-    data={new Array(10).fill(Math.random() * 10)}
-    renderItem={(data, index) => (
-      <Flex className="py-1" key={index}>
-        <Text>{data}</Text>
-      </Flex>
-    )}
-  />
-));
+const ConstructorStandings = memo(() => {
+  const expanded = useObservable(true);
+  const isExpanded = expanded.get();
+
+  return (
+    <motion.div
+      className="overflow-hidden"
+      animate={{ height: isExpanded ? "190px" : "70px" }}
+    >
+      <Show if={!isExpanded}>
+        <Flex align="center" justify="between">
+          <Text size="1" color="gray">
+            Constructor Standings
+          </Text>
+          <button
+            type="button"
+            onClick={() => expanded.set(!expanded.get())}
+            className="flex items-center justify-center text-zinc-500 rounded-sm"
+          >
+            <motion.div
+              className="px-1 py-1"
+              animate={{ rotateZ: isExpanded ? "360deg" : "180deg" }}
+            >
+              <CaretDown size={10} />
+            </motion.div>
+          </button>
+        </Flex>
+      </Show>
+      {isExpanded ? (
+        <Flatlist
+          listHeaderComponent={() => (
+            <Flex align="center" justify="between">
+              <Text size="1" color="gray">
+                Constructor Standings
+              </Text>
+              <button
+                type="button"
+                onClick={() => expanded.set(!expanded.get())}
+                className="flex items-center justify-center text-zinc-500 rounded-sm"
+              >
+                <motion.div
+                  className="px-1 py-1"
+                  animate={{ rotateZ: isExpanded ? "360deg" : "180deg" }}
+                >
+                  <CaretDown size={10} />
+                </motion.div>
+              </button>
+            </Flex>
+          )}
+          data={[
+            { team: "Mclaren Mercedes", position: 1 },
+            { team: "Red Bull", position: 2 },
+            { team: "Scuderia Ferrari", position: 3 },
+            { team: "Mercedes AMG Petronas", position: 4 },
+            { team: "Williams", position: 5 },
+          ]}
+          renderItem={(data, index) => (
+            <Flex
+              key={`${data.team}---${data.position}`}
+              align="center"
+              gap="2"
+              justify="between"
+              className={`py-1 px-2 ${index % 2 === 0 ? "bg-zinc-200/30" : ""}`}
+            >
+              <Text size="1" color="gray">
+                {data.position}.
+              </Text>
+              <Flex align="center" justify="start" grow="1">
+                <Text size="1">{data.team}</Text>
+              </Flex>
+              {/*TODO make this the team logo*/}
+              <div className="px-1 py-1 rounded-full bg-indigo-500" />
+            </Flex>
+          )}
+        />
+      ) : (
+        <Flex className="px-2 py-3" align="center" justify="center">
+          <Text size="1">Condensed Constructors Standings</Text>
+        </Flex>
+      )}
+    </motion.div>
+  );
+});
 
 const DriverStandings = memo(() => (
   <Flatlist
@@ -151,17 +220,76 @@ const DriverStandings = memo(() => (
     data={new Array(10).fill(Math.random() * 10)}
     renderItem={(data, index) => (
       <Flex className="py-1" key={index}>
-        <Text>{data}</Text>
+        <Text size="1">{data}</Text>
       </Flex>
     )}
   />
 ));
 
-const Calender = memo(() => (
-  <Flex align="center">
-    <Flex className="w-4/6">Race Day</Flex>
-    <Flex className="w-2/6" direction="column" justify="center" align="end">
-      Race Week Schedule
+const Calender = memo(() => {
+  const expanded = useObservable(true);
+  const expandedVal = expanded.get();
+
+  const showingOtherElements = computed(
+    () =>
+      globalState$.showCalender.get() && globalState$.showDriverStanding.get(),
+  ).get();
+
+  return (
+    <Flex align="center" className="px-1 py-1" gap="2">
+      <motion.div
+        className="w-full h-full flex items-center justify-center space-x-2"
+        animate={{ height: expandedVal ? "120px" : "30px" }}
+      >
+        <Flex
+          align="start"
+          className="w-4/6 h-full rounded-md bg-zinc-200/20 border-1 border-zinc-300/20 border-solid"
+        >
+          <Flex position="absolute" align="center" justify="end">
+            <button
+              onClick={() => expanded.set(!expanded.get())}
+              className="hover:bg-zinc-200 dark:hover:bg-zinc-200/10 rounded-br-md rounded-tl-md px-1 py-1 flex items-center justify-center"
+              type="button"
+            >
+              <motion.div
+                animate={{ rotateZ: expandedVal ? "360deg" : "180deg" }}
+              >
+                <CaretDown size={10} className="text-indigo-400" />
+              </motion.div>
+            </button>
+          </Flex>
+        </Flex>
+        <motion.div
+          className="w-2/6 text-end"
+          animate={{
+            height: expandedVal ? "120px" : "30px",
+            overflow: expandedVal ? "" : "hidden",
+          }}
+        >
+          <Flex gap="2" direction="column" justify="center">
+            <Flex align="center" justify="start" gap="1">
+              <Calendar size={12} className="text-neutral-400" />
+              <Text size="1">FP1</Text>
+            </Flex>
+            <Flex align="center" justify="start" gap="1">
+              <Calendar size={12} className="text-neutral-400" />
+              <Text size="1">FP2</Text>
+            </Flex>
+            <Flex align="center" justify="start" gap="1">
+              <Calendar size={12} className="text-neutral-400" />
+              <Text size="1">FP3</Text>
+            </Flex>
+            <Flex align="center" justify="start" gap="1">
+              <Calendar size={12} className="text-neutral-400" />
+              <Text size="1">Qualifying</Text>
+            </Flex>
+            <Flex align="center" justify="start" gap="1">
+              <Calendar size={12} className="text-neutral-400" />
+              <Text size="1">Race </Text>
+            </Flex>
+          </Flex>
+        </motion.div>
+      </motion.div>
     </Flex>
-  </Flex>
-));
+  );
+});

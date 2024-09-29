@@ -3,12 +3,12 @@
   "description": "desktop widgets for the F1 enthusiast",
   "version": "0.0.1",
   "author": {
-    "email": "youremail@provider.com",
-    "name": "your_name"
+    "email": "disgruntleddev@outlook.com",
+    "name": "Ikwue Inalegwu"
   },
   "license": "MIT",
   "repository": {
-    "url": "https://github.com/Inalegwu/ElectroStatic.git"
+    "url": "https://github.com/Inalegwu/f1-desktop-widget.git"
   },
   "main": "out/main/main.js",
   "scripts": {
@@ -16,7 +16,8 @@
     "dev": "electron-vite dev -w",
     "prebuild": "electron-vite build",
     "build": "pnpm tsx build.ts",
-    "postinstall": "electron-rebuild"
+    "postinstall": "electron-rebuild",
+    "codegen": "graphql-codegen"
   },
   "dependencies": {
     "@electron/rebuild": "^3.6.0",
@@ -28,7 +29,9 @@
     "@trpc/client": "^10.45.2",
     "@trpc/react-query": "^10.45.2",
     "@trpc/server": "^10.45.2",
+    "axios": "^1.7.7",
     "electron-trpc": "^0.5.2",
+    "framer-motion": "^11.9.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-error-boundary": "^4.0.13",
@@ -47,6 +50,7 @@
     "electron": "^28.3.3",
     "electron-builder": "^24.13.3",
     "electron-vite": "^2.3.0",
+    "graphql": "^16.9.0",
     "tsx": "^4.17.0",
     "typescript": "^5.5.4",
     "unocss": "^0.58.9",

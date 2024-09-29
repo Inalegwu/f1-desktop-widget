@@ -13,9 +13,8 @@ const createWindow = () => {
     transparent: true,
     width: width - 900,
     height: height - 400,
-    resizable: false,
+    // resizable: false,
     x: width - 470,
-    alwaysOnTop: true,
     y: height - 760,
     webPreferences: {
       sandbox: false,
