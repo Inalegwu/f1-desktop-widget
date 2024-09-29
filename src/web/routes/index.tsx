@@ -180,7 +180,7 @@ const ConstructorStandings = memo(() => {
               align="center"
               gap="2"
               justify="between"
-              className={`py-1 px-2 ${index % 2 === 0 ? "bg-zinc-200/30" : ""}`}
+              className={`py-1 px-2 ${index % 2 === 0 ? "bg-zinc-200/30 dark:bg-zinc-200/10" : ""}`}
             >
               <Text size="1" color="gray">
                 {data.position}.
@@ -189,7 +189,7 @@ const ConstructorStandings = memo(() => {
                 <Text size="1">{data.team}</Text>
               </Flex>
               {/*TODO make this the team logo*/}
-              <div className="px-1 py-1 rounded-full bg-indigo-500" />
+              <div className="px-1 py-1 rounded-full bg-indigo-500 dark:bg-indigo-500/60" />
             </Flex>
           )}
         />
@@ -243,7 +243,7 @@ const Calender = memo(() => {
       >
         <Flex
           align="start"
-          className="w-4/6 h-full rounded-md bg-zinc-200/20 border-1 border-zinc-300/20 border-solid"
+          className="w-4/6 h-full rounded-md bg-zinc-200/20 dark:bg-zinc-200/10 border-1 border-zinc-300/20 dark:border-zinc-300/10 border-solid"
         >
           <Flex position="absolute" align="center" justify="end">
             <button
@@ -269,23 +269,33 @@ const Calender = memo(() => {
           <Flex gap="2" direction="column" justify="center">
             <Flex align="center" justify="start" gap="1">
               <Calendar size={12} className="text-neutral-400" />
-              <Text size="1">FP1</Text>
+              <Text size="1" color="gray">
+                FP1
+              </Text>
             </Flex>
             <Flex align="center" justify="start" gap="1">
               <Calendar size={12} className="text-neutral-400" />
-              <Text size="1">FP2</Text>
+              <Text size="1" color="gray">
+                FP2
+              </Text>
             </Flex>
             <Flex align="center" justify="start" gap="1">
               <Calendar size={12} className="text-neutral-400" />
-              <Text size="1">FP3</Text>
+              <Text size="1" color="gray">
+                FP3
+              </Text>
             </Flex>
             <Flex align="center" justify="start" gap="1">
               <Calendar size={12} className="text-neutral-400" />
-              <Text size="1">Qualifying</Text>
+              <Text size="1" color="gray">
+                Qualifying
+              </Text>
             </Flex>
             <Flex align="center" justify="start" gap="1">
               <Calendar size={12} className="text-neutral-400" />
-              <Text size="1">Race </Text>
+              <Text size="1" color="gray">
+                Race{" "}
+              </Text>
             </Flex>
           </Flex>
         </motion.div>
